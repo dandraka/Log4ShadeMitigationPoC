@@ -6,7 +6,7 @@ name: Maven Package
 on:
   push:
     tags:
-      - 'Release-*'
+      - 'v*'
 
 jobs:
   build:
@@ -35,9 +35,9 @@ jobs:
       with:
         draft: false
         prerelease: false
-        release_name: ${{ github.ref }}
         tag_name: ${{ github.ref }}
-        body_path: README.md
+        release_name: Release ${{ github.ref }}
+        #body_path: README.md
       env:
         GITHUB_TOKEN: ${{ github.token }}
         
