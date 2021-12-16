@@ -37,12 +37,18 @@ jobs:
         echo ::set-output name=ARTIFACT_NAME::${ARTIFACT_NAME}
         echo ::set-output name=ARTIFACT_PATHNAME::${ARTIFACT_PATHNAME}      
         
-    - name: Upload artifacts
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
+    #- name: Upload artifacts
+    #  uses: actions/upload-release-asset@v1
+    #  env:
+    #    GITHUB_TOKEN: ${{ github.token }}
+    #  with:
+    #    upload_url: ${{ github.event.release.upload_url }}
+    #    asset_path: ${{ steps.get_name.outputs.ARTIFACT_PATHNAME }}
+    #    asset_name: ${{ steps.get_name.outputs.ARTIFACT_NAME }}
+    #    asset_content_type: application/java-archive       
+    
+    - name: Publish artifact
+      uses: actions/upload-artifact@v2
       with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ${{ steps.get_name.outputs.ARTIFACT_PATHNAME }}
-        asset_name: ${{ steps.get_name.outputs.ARTIFACT_NAME }}
-        asset_content_type: application/java-archive       
+        name: ${{ steps.get_name.outputs.ARTIFACT_NAME }}
+        path: ${{ steps.get_name.outputs.ARTIFACT_PATHNAME }}
